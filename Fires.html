@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <title> Bocong's Web Design | Fires</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Data Visualization Using Vega-Lite">
+    <meta name="author" content="Bocong Zhao">
+    <meta name="keywords" content="Australia Fires & Historical Rainfall, Temperature">
+    <link rel="stylesheet" media="all" href="css/main.css" />
+    <script src="js/modernizr.custom.37797.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.16.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.16.8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.12.2"></script>
+    <!-- Grab Google CDN's jQuery. fall back to local if necessary --> 
+    <script src="https://www.5g-o.com/codedesign/wp-content/uploads/2020/02/jquery.min_.js"></script> 
+    <script>!window.jQuery && document.write('<script src="/js/jquery-1.6.1.min.js"><\/script>')</script>
+    <script src="js/parallax.js"></script>
+
+    <style media="screen">
+        /* Add space between Vega-Embed links  */
+        .vega-actions a {
+          margin-right: 5px;
+        }
+      </style>
+  </head>
+
+ <body>
+    <div id="wrapper">
+      
+      <header id="branding">
+        <nav>
+          <ul>
+          <li><a href="Webpage_Coding.html">Home</a></li>
+          <li class="current"><a href="Fires.html">Fires</a></li>
+          <li><a href="Rainfall.html">Rainfall</a></li>
+          <li><a href="Temp.html">Temperature</a></li>
+          <li><a href="services.html">About</a></li>
+          </ul>
+        </nav>
+      </header>
+      
+      <nav id="primary">
+        <ul>
+          <li>
+            <h1>Australia Fires Map</h1>
+            <a class="manned-flight" href="#manned-flight">View</a>
+          </li>
+          <li>
+            <h1>The frameless parachute</h1>
+            <a class="frameless-parachute" href="#frameless-parachute">View</a>
+          </li>
+          <li>
+            <h1>Over the English Channel</h1>
+            <a class="english-channel" href="#english-channel">View</a>
+          </li>
+          <li>
+            <h1>About</h1>
+            <a class="about" href="#about">View</a>
+          </li>
+        </ul>
+      </nav>
+      
+      <div id="content">
+        <article id="manned-flight">
+          <header>
+            <h1>Australia Fire Map</h1>
+          </header>
+          <p>The first clearly recorded instance of a balloon carrying passengers used hot air to generate buoyancy and was built by the brothers Joseph-Michel and Jacques-Etienne Montgolfier in Annonay, France. After experimenting with unmanned balloons and flights with animals, the first tethered balloon flight with humans on board took place on October 15, 1783.</p>
+          <nav class="next-prev">
+            <hr />
+            <a class="next frameless-parachute" href="#frameless-parachute">Next</a>
+          </nav>
+        </article>
+        
+        <article id="frameless-parachute">
+          <header>
+            <h1>The frameless parachute</h1>
+          </header>
+          <p>André-Jacques Garnerin carried out the first jump with a silk parachute on October 22, 1797 at Parc Monceau, Paris. Garnerin's first parachute resembled a closed umbrella before he ascended; at a height of approximately 3,000 feet he severed the rope that connected his parachute to the balloon, and the basket fell to earth. Garnerin emerged uninjured.</p>
+          <nav class="next-prev">
+            <a class="prev manned-flight" href="#manned-flight">Prev</a>
+            <hr />
+            <a class="next english-channel" href="#english-channel">Next</a>
+          </nav>
+        </article>
+        
+        <article id="english-channel">
+          <header>
+            <h1>Over the English Channel</h1>
+          </header>
+          <p>On January 7, 1785, Jean Pierre Blanchard and Dr. John Jeffries made the first flight over the English Channel, traveling from Dover to France. During the crossing the balloon lost altitude, so they began tossing everything in the gondola they possibly could, even their clothes. About two hours after take off, they crossed the French coast clad only in their underwear.</p>
+          <nav class="next-prev">
+            <a class="prev frameless-parachute" href="#frameless-parachute">Prev</a>
+            <hr />
+            <a class="next about" href="#about">Next</a>
+          </nav>
+        </article>
+        
+        <article id="about">
+          <header>
+            <h1>About</h1>
+          </header>
+          <p>This is a jQuery parallax scrolling experiment by Jonathan Nicol. <a href="http://f6design.com/journal/2011/08/06/build-a-parallel-scrolling-website-interface-with-jquery-and-css/">Read about it</a> on my blog.</p>
+          <nav class="next-prev">
+            <a class="prev english-channel" href="#english-channel">Prev</a>
+            <hr />
+          </nav>
+        </article>
+      </div>
+      
+      <!-- Parallax foreground -->
+        <div id="bg3-2">
+        <script>
+       // Assign the specification to a local variable vlSpec.
+        var vlSpec ={
+     "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+     "width": 529,
+     "height": 529,
+     "title": "Australia Fire Map",
+     "layer": [
+     { "data": {
+       "url": "https://raw.githubusercontent.com/BocongZhao823/My_First_Webpage-/main/data/Ausmap.geo.json",
+       "format": {"type": "topojson", "feature": "custom"}
+     },
+     "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"}
+     },
+     {
+     "data": {
+       "url": "https://raw.githubusercontent.com/BocongZhao823/My_First_Webpage-/main/data/AusNew.csv"
+     },
+   
+    "transform": [
+      {"calculate": "datum.track*datum.scan",
+      "as":"real_size"}
+    ],
+   
+     "encoding": {
+     "longitude": {"field": "longitude", "type": "quantitative"},
+     "latitude": {"field": "latitude", "type": "quantitative"}
+     },
+     "layer": [
+     {
+     "mark": {
+     "type": "circle",
+     "tooltip": {"content": "data"}
+     },
+     "encoding": {
+     "size": {"field": "real_size",
+     "type": "quantitative",
+     "scale": {
+     "domain": [0, 10]
+     }},
+     "color": {"field": "confidence",
+     "type": "quantitative",
+     "scale":{
+     "scheme":"reds"
+     }
+     }
+     }
+     }
+     ]
+     }
+     ],
+      "config": {"projection": {"type": "orthographic", "rotate": [-140, 30, 0]}}}
+                              // Embed the visualization in the container with id `vis`
+                              vegaEmbed('#bg3-2', vlSpec);
+       </script>
+    </div>
+      
+    
+    </div>
+  
+  </body>
+  
+</html>
